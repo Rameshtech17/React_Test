@@ -9,7 +9,7 @@ import { Timing } from './Timing';
 import { useKeepAwake } from 'expo-keep-awake';
 
 const DEFAULT_TIME = 0.1;
-export const Timer = ({ focusSubject, onTimerEnd}) => {
+export const Timer = ({ focusSubject, onTimerEnd,clearSubject  }) => {
     useKeepAwake();
 
     const interval = React.useRef(null);
@@ -52,15 +52,15 @@ export const Timer = ({ focusSubject, onTimerEnd}) => {
                     onProgress={onProgress}
                     onEnd={onEnd} />
             </View>
-            <View style={ {paddingTop: spacing.xxl }}>
+            <View style={{ paddingTop: spacing.xxl }}>
                 <Text style={style.title}> Focusing On:</Text>
                 <Text style={style.task}>{focusSubject} </Text>
             </View>
-            <View style={ {paddingTop: spacing.sm }}> 
-            <ProgressBar
-                progress={progress}
-                color='#6B84B2'
-                style={{ height: 10 }} />
+            <View style={{ paddingTop: spacing.sm }}>
+                <ProgressBar
+                    progress={progress}
+                    color='#6B84B2'
+                    style={{ height: 10 }} />
             </View>
             <View style={style.buttonWrapper}>
                 <Timing onchangeTime={changeTime} />
@@ -70,8 +70,14 @@ export const Timer = ({ focusSubject, onTimerEnd}) => {
                 {isStarted ? (<RoundedButton title="Pause" size={50} onPress={() => setIsStarted(false)} />
                 ) : (<RoundedButton title="Start" size={50} onPress={() => setIsStarted(true)} />
                     )}
-
             </View>
+            <View style={style.clearSubject}>
+                    <RoundedButton 
+                    title="-" 
+                    size={50} 
+                    onPress={() => clearSubject()} 
+/>
+                </View>
 
         </View>
     )
@@ -106,5 +112,10 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
 
+    },
+    clearSubject:{
+        paddingBottom:15,
+        paddingLeft:25
     }
+
 })

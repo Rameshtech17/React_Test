@@ -17,18 +17,23 @@ export const Countdown = ({
         setMillis((time) => {
             if (time === 0) {
                 clearInterval(intervel.current);
-                onEnd();
                 return time;
             }
             const timeLeft = time - 1000;
-            onProgress(timeLeft / minutesToMillis(minutes))
             return timeLeft;
         })
     }
 
     useEffect(() => {
         setMillis(minutesToMillis(minutes))
-    }, [minutes])
+    }, [minutes]);
+
+    useEffect(() => {
+        onProgress(millis / minutesToMillis(minutes))
+        if(millis ===0 ){
+            onEnd();
+        }
+    }, [millis]);
 
 
     useEffect(() => {
@@ -38,7 +43,7 @@ export const Countdown = ({
         }
         intervel.current = setInterval(countDown, 1000);
         return () => clearInterval(intervel.current)
-    }, [isPaused])
+    }, [isPaused]);
 
     const [millis, setMillis] = useState(minutesToMillis(minutes));
     const minute = Math.floor(millis / 1000 / 60) % 60;

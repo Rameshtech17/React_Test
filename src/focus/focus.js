@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
-import { StyleSheet,  Text,View,nativeEvent} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, nativeEvent } from 'react-native';
 import { TextInput, } from "react-native-paper";
 import { RoundedButton } from "./roundedButton";
-import {fontSizes, spacing } from "../utils/sizes";
-import { colors} from "../utils/colors";
+import { fontSizes, spacing } from "../utils/sizes";
+import { colors } from "../utils/colors";
 
 
 export const Focus = ({ addSubject }) => {
@@ -11,15 +11,21 @@ export const Focus = ({ addSubject }) => {
         //For generating alert on buttton click
         alert('Add Buttion Clicked');
     }
-    const [tempItem,setTempItem] = useState(null)
+    const [subject, setSubject] = useState(null)
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}> What would you llike to focuss on?</Text>
                 <View style={styles.inputContainer}>
                     <TextInput style={{ flex: 1, marginRight: 20 }}
-                        onSubmitEditing = {({nativeEvent})=>{setTempItem(nativeEvent.text)}} />
-                    <RoundedButton size={50} title="+" onPress={()=>addSubject(tempItem)}/>
+                        onSubmitEditing={({ nativeEvent }) => { setSubject(nativeEvent.text) }} />
+                    <RoundedButton
+                        size={50}
+                        title="+"
+                        onPress={() => {
+                            addSubject(subject)
+                        }}
+                    />
                 </View>
             </View>
         </View>
